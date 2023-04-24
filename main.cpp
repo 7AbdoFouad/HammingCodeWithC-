@@ -193,7 +193,6 @@ void AboooD()
 void solve()
 {
  
-    
  // hamming code algorithm
 string mgs; cin>>mgs; //11010 dataWord
 ll k=sz(mgs);  ll r=0;
