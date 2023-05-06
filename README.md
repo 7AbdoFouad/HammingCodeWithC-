@@ -6,7 +6,7 @@
 
 Hamming code is a linear error-correcting code that can detect and correct single-bit errors in data transmission. The Hamming distance between two binary strings is the number of bit positions in which the two bits are different. The Hamming distance of two codewords is defined as the number of positions in which the two codewords differ.
 
-#### Algorithm
+### Encoding Algorithms
 
 1. Convert the data word to binary form.
 2. Determine the number of redundant bits required using the formula `2^r >= m + r + 1`.
@@ -15,7 +15,7 @@ Hamming code is a linear error-correcting code that can detect and correct singl
 5. Calculate the value of each redundant bit using the following formula: `P(i) = b1 XOR b2 XOR b3 XOR ... XOR bk`, where `bi` represents the bits whose indices contain a 1 in the binary representation of i.
 6. Place the values of the redundant bits in their corresponding positions in the codeword.
 
-### Decoding
+### Decoding Algorithms
 
 1. Receive the transmitted codeword.
 2. Calculate the values of the redundant bits of the received codeword using the same formula as step 5 of the encoding algorithm.
@@ -30,7 +30,7 @@ Hamming code is a linear error-correcting code that can detect and correct singl
 
 A linear block code is an error-correcting code in which each codeword is a linear combination of a set of generator vectors. The generator vectors are selected in such a way that they span the entire space of possible codewords.
 
-### Algorithm
+### Encoding Algorithms
 
 1. Choose a generator matrix G for the code.
 2. Convert the message to a binary vector.
@@ -43,7 +43,7 @@ A linear block code is an error-correcting code in which each codeword is a line
 9. Correct the errors by flipping the bits in the received codeword at the determined bit positions.
 10. The corrected codeword is the decoded message.
 
-### Decoding
+### Decoding Algorithms
 
 1. Receive the transmitted codeword.
 2. Multiply the received codeword by the transpose of the generator matrix to obtain the syndrome vector.
