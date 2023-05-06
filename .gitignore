@@ -1,0 +1,5 @@
+.vscode
+.idea
+HC\Build
+LBC\Build
+CMakelists.txt
