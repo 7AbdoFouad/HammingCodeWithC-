@@ -44,6 +44,7 @@ A linear block code is an error-correcting code in which each codeword is a line
 10. The corrected codeword is the decoded message.
 
 ### Decoding
+
 1. Receive the transmitted codeword.
 2. Multiply the received codeword by the transpose of the generator matrix to obtain the syndrome vector.
 3. If the syndrome vector is zero, no errors have occurred and the transmitted codeword is the decoded message.
