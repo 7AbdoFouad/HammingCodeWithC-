@@ -62,8 +62,6 @@ void solve() {
   cout << "\n";
   cout << "*******************\n";
 
-  // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
   //   Read the received code word
   string recivedCodeWord;
   cin >> recivedCodeWord;
@@ -91,7 +89,7 @@ void solve() {
 
   for (int i = 0; i < r; i++) {
     int a = (1 << i);
-
+    // todo: check this handling :)
     if (res_of_Ps_InResivedCodeWord[i] != (recivedCodeWord[a - 1] - '0')) {
       error += a;
     }
