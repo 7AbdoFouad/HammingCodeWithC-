@@ -1,6 +1,5 @@
 .vscode
 .idea
-HC/Build
-LBC/Build
-HC/src/test.cpp
+Build
+src/test.cpp
 CMakelists.txt
