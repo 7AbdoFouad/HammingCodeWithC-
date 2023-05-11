@@ -1,17 +1,19 @@
+/*
+The Hamming code algorithm was developed by "Richard Hamming", an American mathematician and computer scientist.
+It involves adding redundant parity bits to a data word to enable error detection and correction.
+This algorithm has been widely used in computer systems and communication protocols since its development in the "1950s".
+*/
+
 #include <bits/stdc++.h>
+#include <windows.h>
 
 using namespace std;
+
 typedef long long ll;
 
-void solve() {
-  // todo: add info about the algorithm.
-
-  // Read the message to be encoded
-  string mgs;
-  cin >> mgs;
-
+void encoding(string &message) {
   // Calculate the number of bits needed for parity bits
-  ll k = int(mgs.size());
+  ll k = int(message.size());
   ll r = 0;
   while (1 << r < k + r + 1) r++;
 
@@ -26,7 +28,7 @@ void solve() {
   for (int i = n - 1, j = 0; i >= 0; i--, j++) {
     // Skip the positions that are powers of 2 (parity bits)
     if (!(i + 1 and (!(i + 1 & i)))) {
-      codeWord[j] = mgs[a++];
+      codeWord[j] = message[a++];
     }
   }
 
@@ -57,18 +59,19 @@ void solve() {
   }
   reverse(codeWord.begin(), codeWord.end());
 
-  // Print the encoded code word
-  cout << "Encoded codeWord is: " << codeWord;
-  cout << "\n";
-  cout << "*******************\n";
+  cout << "Encoded codeWord is: " << codeWord << "\n";
+}
 
-  //   Read the received code word
-  string recivedCodeWord;
-  cin >> recivedCodeWord;
+void decoding(string &receivedCodeWord) {
+  ll n = int(receivedCodeWord.size());
+  ll r = 0;
+  while (1 << r < n + 1) r++;
+  ll k = n - r;
+
   vector<long long> res_of_Ps_InResivedCodeWord(r);
   int error = 0;
-  x = 1;
-  reverse(recivedCodeWord.begin(), recivedCodeWord.end());
+  int x = 1;
+  reverse(receivedCodeWord.begin(), receivedCodeWord.end());
   // Calculate the values of parity bits in the received code word
   for (int i = 0; i < r; i++) {
     // res_of_Ps_InResivedCodeWord[i] = 0;
@@ -78,7 +81,7 @@ void solve() {
       if (check) {
         for (int t = k; t < k + x && t < n; t++) {
           if (k == cnt && k == t) continue;
-          res_of_Ps_InResivedCodeWord[i] ^= (recivedCodeWord[t] - '0');
+          res_of_Ps_InResivedCodeWord[i] ^= (receivedCodeWord[t] - '0');
         }
       }
       check = !check;
@@ -89,35 +92,90 @@ void solve() {
 
   for (int i = 0; i < r; i++) {
     int a = (1 << i);
-    // todo: check this handling :)
-    if (res_of_Ps_InResivedCodeWord[i] != (recivedCodeWord[a - 1] - '0')) {
+    if (res_of_Ps_InResivedCodeWord[i] != (receivedCodeWord[a - 1] - '0')) {
       error += a;
     }
   }
 
-  reverse(recivedCodeWord.begin(), recivedCodeWord.end());
+  reverse(receivedCodeWord.begin(), receivedCodeWord.end());
 
   // If no error is detected and the received code word matches the original code word
-  if (error == 0 && recivedCodeWord == codeWord) {
-    cout << "No error";
-    cout << "\n";
-    cout << "Code word: " << recivedCodeWord;
-    cout << "\n";
-  } else {
-    cout << "Error in bit number " << error;
-    cout << "\n";
+  if (!error)
+    cout << "No error"
+         << "\n"
+         << "Code word: " << receivedCodeWord << "\n";
+  else {
+    cout << "Error in bit number " << error << "\n";
 
     // Flip the bit at the detected error position to correct the error
-    if (recivedCodeWord[n - error] == '0')
-      recivedCodeWord[n - error] = '1';
+    if (receivedCodeWord[n - error] == '0')
+      receivedCodeWord[n - error] = '1';
     else
-      recivedCodeWord[n - error] = '0';
+      receivedCodeWord[n - error] = '0';
 
-    cout << "Correct code word: " << recivedCodeWord;
+    cout << "Correct code word: " << receivedCodeWord;
     cout << "\n";
   }
 }
 
+void printColoredChar(char c, int r, int g, int b) {
+  std::cout << "\033[38;2;" << r << ";" << g << ";" << b << "m" << c;
+}
+
 int main() {
-  solve();
+#include <iostream>
+  cout << "\n \e[96m   __________  ____ \e[0m  \e[35m   _____ ________________  ____________\e[0m \n";
+  cout << "   \e[96m/_  __/ __ \\/ __ \\ \e[0m \e[35m  / ___// ____/ ____/ __ \\/ ____/_  __/\e[0m \n";
+  cout << "   \e[96m / / / / / / /_/ / \e[0m   \e[35m\\__ \\/ __/ / /   / /_/ / __/   / /   \e[0m \n";
+  cout << "  \e[96m / / / /_/ / ____/ \e[0m   \e[35m___/ / /___/ /___/ __ _/ /___  / /    \e[0m \n";
+  cout << " \e[96m /_/  \\____/_/   \e[0m    \e[35m /____/_____/\\____/_/ |_/_____/ /_/     \e[0m \n\n";
+
+  Sleep(1300);
+  cout << "\e[36m";
+
+  cout << " -------------------------------------\n";
+  cout << "|  Welcome to the Hamming code tool  |\n";
+  cout << " -------------------------------------\n";
+
+  while (1) {
+    cout << "\nPlease choose an option:\n";
+    cout << "--------------------------\n";
+    cout << "1. Encode a message\n";
+    cout << "2. Decode a received code word\n";
+    cout << "3. To exit\n";
+    cout << "--------------------------\n";
+    cout << "Your choice: ";
+
+    int choice;
+    cin >> choice;
+
+    switch (choice) {
+      case 1: {
+        cout << "Enter the message to encode: ";
+        string message;
+        cin >> message;
+        encoding(message);
+        Sleep(500);
+        break;
+      }
+      case 2: {
+        cout << "Enter the received code word: ";
+        string receivedCodeWord;
+        cin >> receivedCodeWord;
+        decoding(receivedCodeWord);
+        Sleep(500);
+        break;
+      }
+      case 3:
+        return cout << "\nthanks for using our tool. Goodbye!\n", 0;
+      default: {
+        cout << "Invalid choice. Please try again.\n";
+        continue;
+      }
+    }
+    char flag;
+    cout << "\nDo you want to continue using the tool? (y/n): ", cin >> flag;
+    if (tolower(flag) == 'n') return cout << "\nthanks for using our tool. Goodbye!\n", 0;
+    Sleep(500);
+  }
 }
