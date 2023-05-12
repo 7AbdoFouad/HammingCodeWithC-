@@ -134,7 +134,7 @@ int main() {
   cout << "\e[36m";
 
   cout << " -------------------------------------\n";
-  cout << "|  Welcome to the Hamming code tool  |\n";
+  cout << "|  Welcome to the Hamming code tool   |\n";
   cout << " -------------------------------------\n";
 
   while (1) {
