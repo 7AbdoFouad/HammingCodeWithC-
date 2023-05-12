@@ -1,4 +1,0 @@
-Encoded codeWord is: 111010011
-*******************
-there is error in bit number 1
-the correct codeWord = 111010011
