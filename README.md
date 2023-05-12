@@ -14,8 +14,9 @@ The encoding algorithm for Hamming code is as follows:
 2. Determine the number of redundant bits required using the formula `2^r >= m + r + 1`, where `m` is the number of bits in the data word and `r` is the number of redundant bits.
 3. Allocate the redundant bits in the codeword at positions that are powers of two (e.g., 1, 2, 4, 8, etc.).
 4. Fill in the remaining positions with the binary digits of the data word.
-5. Calculate the value of each redundant bit using the formula: `P(i) = b1 XOR b2 XOR b3 XOR ... XOR bk`, where `bi` represents the bits whose indices contain a 1 in the binary representation of `i`.
-6. Place the values of the redundant bits in their corresponding positions in the codeword.
+5. Calculate the value of each redundant bit using the formula: `P(i) = b1 XOR b2 XOR b3 XOR ... XOR bk`, 
+where `bi` represents the bits whose indices contain a 1 in the binary representation of `i`.
+7. Place the values of the redundant bits in their corresponding positions in the codeword.
 
 ## Decoding Algorithm
 
