@@ -15,7 +15,7 @@ void encoding(string &message) {
   // Calculate the number of bits needed for parity bits
   ll k = int(message.size());
   ll r = 0;
-  while (1 << r < k + r + 1) r++;
+  while ((1 << r) < k + r + 1) r++;
 
   // Calculate the total number of bits in the code word
   ll n = k + r;
@@ -118,12 +118,7 @@ void decoding(string &receivedCodeWord) {
   }
 }
 
-void printColoredChar(char c, int r, int g, int b) {
-  std::cout << "\033[38;2;" << r << ";" << g << ";" << b << "m" << c;
-}
-
 int main() {
-#include <iostream>
   cout << "\n \e[35m   __________  ____ \e[0m  \e[35m   _____ ________________  ____________\e[0m \n";
   cout << "   \e[35m/_  __/ __ \\/ __ \\ \e[0m \e[35m  / ___// ____/ ____/ __ \\/ ____/_  __/\e[0m \n";
   cout << "   \e[35m / / / / / / /_/ / \e[0m   \e[35m\\__ \\/ __/ / /   / /_/ / __/   / /   \e[0m \n";
