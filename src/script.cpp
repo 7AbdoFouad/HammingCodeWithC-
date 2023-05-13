@@ -14,8 +14,9 @@ typedef long long ll;
 void encoding(string &message) {
   // Calculate the number of bits needed for parity bits
   ll k = int(message.size());
+
   ll r = 0;
-  while ((1 << r) < k + r + 1) r++;
+  while (pow(2, r) < k + r + 1) r++;
 
   // Calculate the total number of bits in the code word
   ll n = k + r;
@@ -24,38 +25,42 @@ void encoding(string &message) {
   string codeWord(n, '0');
 
   int a = 0;
-  // Fill the data bits in the code word
+  // Fill the message bits in the codeWord
   for (int i = n - 1, j = 0; i >= 0; i--, j++) {
     // Skip the positions that are powers of 2 (parity bits)
-    if (!(i + 1 and (!(i + 1 & i)))) {
+    if (i + 1 & i) {
       codeWord[j] = message[a++];
     }
   }
 
   // Calculate the values of parity bits
-  vector<long long> res_of_Ps(r);
+  vector<long long> parity_bits(r);
   int x = 1;
   reverse(codeWord.begin(), codeWord.end());
+  // p1 p2 0 p4 1 0 1
+  // 3
   for (int i = 0; i < r; i++) {
-    // res_of_Ps[i] = 0;
-    int cnt = (1 << i) - 1;
+    int parity_pos = pow(2, i) - 1;
     bool check = true;
-    for (int k = cnt; k < n; k += x) {
+
+    // get each parity bits
+    for (int k = parity_pos; k < n; k += x) {
       if (check) {
-        for (int t = k; t < k + x && t < n; t++) {
-          res_of_Ps[i] ^= (codeWord[t] - '0');
+        // calc the colection of bits
+        for (int t = k; t < k + x && t < n; t++) {  // '45'
+          parity_bits[i] = parity_bits[i] ^ (codeWord[t] - '0');
         }
       }
       check = !check;
     }
+
     x *= 2;
   }
 
   // Update the code word with the values of parity bits
-  x = 0;
-  for (int i = 0; i < r; i++) {
-    codeWord[(1 << i) - 1] = res_of_Ps[x] + '0';
-    x++;
+
+  for (int i = 0, b = 0; i < r; i++, b++) {
+    codeWord[pow(2, i) - 1] = parity_bits[b] + '0';
   }
   reverse(codeWord.begin(), codeWord.end());
 
@@ -125,7 +130,7 @@ int main() {
   cout << "  \e[35m / / / /_/ / ____/ \e[0m   \e[35m___/ / /___/ /___/ __ _/ /___  / /    \e[0m \n";
   cout << " \e[35m /_/  \\____/_/   \e[0m    \e[35m /____/_____/\\____/_/ |_/_____/ /_/     \e[0m \n\n";
 
-  Sleep(1300);
+  Sleep(1200);
   cout << "\e[36m";
 
   cout << " -------------------------------------\n";
