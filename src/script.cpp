@@ -80,12 +80,12 @@ void decoding(string &receivedCodeWord) {
   // Calculate the values of parity bits in the received code word
   for (int i = 0; i < r; i++) {
     // res_of_Ps_InResivedCodeWord[i] = 0;
-    int cnt = (1 << i) - 1;
+    int parity_pos = pow(2, i) - 1;
     bool check = 1;
-    for (int k = cnt; k < n; k += x) {
+    for (int k = parity_pos; k < n; k += x) {
       if (check) {
         for (int t = k; t < k + x && t < n; t++) {
-          if (k == cnt && k == t) continue;
+          if (k == parity_pos && k == t) continue;
           res_of_Ps_InResivedCodeWord[i] ^= (receivedCodeWord[t] - '0');
         }
       }
@@ -96,7 +96,7 @@ void decoding(string &receivedCodeWord) {
   }
 
   for (int i = 0; i < r; i++) {
-    int a = (1 << i);
+    int a = pow(2, i);
     if (res_of_Ps_InResivedCodeWord[i] != (receivedCodeWord[a - 1] - '0')) {
       error += a;
     }
@@ -105,11 +105,9 @@ void decoding(string &receivedCodeWord) {
   reverse(receivedCodeWord.begin(), receivedCodeWord.end());
 
   // If no error is detected and the received code word matches the original code word
-  if (!error)
-    cout << "No error"
-         << "\n"
-         << "Code word: " << receivedCodeWord << "\n";
-  else {
+  if (!error) {
+    cout << "No error\n";
+  } else {
     cout << "Error in bit number " << error << "\n";
 
     // Flip the bit at the detected error position to correct the error
@@ -118,8 +116,15 @@ void decoding(string &receivedCodeWord) {
     else
       receivedCodeWord[n - error] = '0';
 
-    cout << "Correct code word: " << receivedCodeWord;
-    cout << "\n";
+    cout << "Corrected code word: " << receivedCodeWord << "\n";
+  }
+
+  // Print the message bits in the code word
+  cout << "Message bits: ";
+  for (int i = n - 1, j = 0; i >= 0; i--, j++) {
+    if (i + 1 & i) {
+      cout << receivedCodeWord[j];
+    }
   }
 }
 
